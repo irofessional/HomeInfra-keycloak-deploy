@@ -1,0 +1,46 @@
+- name: Create a volume
+  community.docker.docker_volume:
+    name: letsencrypt 
+    state: present
+    recreate: options-changed
+
+- name: Create a network
+  community.docker.docker_network:
+    name: {{ traefik_docker_network_name }}
+
+- name: Create a traefik config directory
+  file:
+    path: /etc/traefik
+    state: directory
+
+- name: Create a traefik config file from template
+  template:
+    src: traefik.yaml.j2
+    dest: /etc/traefik/traefik.yaml
+
+- name: Create a traefik container
+  community.docker.docker_container:
+    name: traefik
+    image: traefik:latest
+    networks:
+      - name: traefik
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - /etc/traefik/:/etc/traefik/
+    ports:
+      - "80:80"
+      - "443:443"
+
+- name: Create a keycloak container
+  community.docker.docker_container:
+    name: keycloak-app
+    image: cafecat6503/keycloak
+    detach: yes
+    networks:
+      - name: traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.frontend-nginx-secured.entrypoints=https
+      - traefik.http.routers.frontend-nginx-secured.rule=Host(`{{ keycloak_domain }}`)
+      - traefik.http.routers.frontend-nginx-secured.tls.certresolver=letsencrypt
+

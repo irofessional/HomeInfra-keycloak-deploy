@@ -1,0 +1,4 @@
+keycloak_domain: "sso.irofessional.io"
+letsencrypt_email: "kaito.k.0725@gmail.com"
+traefik_docker_network_name: "traefik"
+traefik_resolver_name: "letsencrypt"

@@ -1,0 +1,5 @@
+- hosts: keycloak
+  roles:
+    - keycloak
+  remote_user: ubuntu
+  become: yes

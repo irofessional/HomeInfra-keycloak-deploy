@@ -1,0 +1,21 @@
+- name: Create a volume
+  community.docker.docker_volume:
+    name: postgresql
+    state: present
+    recreate: options-changed
+
+- name: Create a network
+  community.docker.docker_network:
+    name: postgresql
+
+- name: Create a postgresql container
+  community.docker.docker_container:
+    name: postgresql
+    image: postgresql:14
+    detach: yes
+    networks:
+      - name: postgresql
+    volumes:
+      - "postgresql:/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"

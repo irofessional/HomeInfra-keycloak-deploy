@@ -1,0 +1,5 @@
+- hosts: postgresql
+  roles:
+    - postgresql
+  remote_user: ubuntu
+  become: yes
