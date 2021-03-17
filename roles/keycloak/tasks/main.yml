@@ -6,7 +6,7 @@
 
 - name: Create a network
   community.docker.docker_network:
-    name: {{ traefik_docker_network_name }}
+    name: "{{ traefik_docker_network_name }}"
 
 - name: Create a traefik config directory
   file:
