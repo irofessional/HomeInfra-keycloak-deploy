@@ -19,3 +19,7 @@
       - "postgresql:/var/lib/postgresql/data"
     ports:
       - "5432:5432"
+    env:
+      POSTGRES_PASSWORD: "6BivdYUa4Z77"
+      POSTGRES_USER: "keycloak"
+      POSTGRES_DB: "keycloak"
