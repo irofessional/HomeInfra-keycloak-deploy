@@ -35,3 +35,9 @@
   notify: start_docker
   tags: docker
   become: yes
+
+- name: Add user to docker group
+  user:
+    name: "ubuntu"
+    group: "docker"
+    append: yes

@@ -3,9 +3,3 @@
     name: docker
     state: started
     enabled: yes
-  
-- name: Add remote "ubuntu" user to "docker" group
-  user:
-    name: "ubuntu"
-    group: "docker"
-    append: yes
