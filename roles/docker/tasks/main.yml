@@ -43,3 +43,8 @@
     groups:
       - docker
     append: yes
+
+- name: Install Python docker library
+  ansible.builtin.pip:
+    state: present
+    name: docker
