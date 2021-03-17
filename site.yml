@@ -1,3 +1,4 @@
 ---
 - include: docker.yml
 - include: keycloak.yml
+- include: postgresql.yml
